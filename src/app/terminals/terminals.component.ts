@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { OperationsService } from '../_services/operations.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class TerminalsComponent implements OnInit {
   isViewTerminalMode: boolean = false;
   terminalDetails: any;
 
-  constructor(private operationsService: OperationsService) { }
+  constructor(private operationsService: OperationsService, private toastr: ToastrService) { }
 
   // This function loads merchant terminals
   getMerchantTerminals() {
@@ -22,12 +23,15 @@ export class TerminalsComponent implements OnInit {
 
     // Load merchant terminals from service and get the data
     this.operationsService.getTerminalByNumber(merchantNumber).subscribe(res => {
-      console.log('getTerminalByNumber data ', res);
-      this.terminals = res;
 
+      if (res) {
+        this.terminals = res;
+      } else {
+        this.toastr.error('No info', 'No data found');
+      }
     }, error => {
       // Any error arising from getTerminalByNumber 
-      console.log('getTerminalByNumber Error ', error);
+      this.toastr.error(error.message, 'Error found');
     });
   }
 
@@ -35,12 +39,9 @@ export class TerminalsComponent implements OnInit {
     this.terminalDetails = item;
 
     this.isViewTerminalMode = true;
-
-    console.log('viewTerminal ', this.terminalDetails);
   }
 
   closePopup(event: boolean) {
-    console.log('closePopup ', event);
     this.isViewTerminalMode = event;
   }
 

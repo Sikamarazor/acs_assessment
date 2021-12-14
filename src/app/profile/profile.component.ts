@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { OperationsService } from '../_services/operations.service';
 
 @Component({
@@ -17,7 +18,8 @@ export class ProfileComponent implements OnInit {
   regionCode: string = "";
   countryCode: string = "";
 
-  constructor(private route: ActivatedRoute, private operationsService: OperationsService) { 
+  constructor(private route: ActivatedRoute, private operationsService: OperationsService
+    , private toastr: ToastrService) { 
   }
 
   
@@ -29,9 +31,9 @@ export class ProfileComponent implements OnInit {
 
     // Load merchant from service
     this.operationsService.getMerchantByNumber(merchantNumber).subscribe(res => {
-      console.log('getMerchantByNumber data ', res);
       
-      this.companyProfile = res;
+      if (res) {
+        this.companyProfile = res;
 
         this.shopName = this.companyProfile.shopName;
         this.merchantNumber = this.companyProfile.merchantNumber;
@@ -39,8 +41,12 @@ export class ProfileComponent implements OnInit {
         this.city = this.companyProfile.city;
         this.regionCode = this.companyProfile.regionCode;
         this.countryCode = this.companyProfile.countryCode;
+      } else {
+        this.toastr.error('No info', 'No data found');
+      }
+      
     }, error => {
-      console.log('getMerchantByNumber Error ', error);
+      this.toastr.error(error.message, 'Error found');;
     });
   }
 
@@ -51,8 +57,6 @@ export class ProfileComponent implements OnInit {
       // Check if any data from params, if nothing load from the service
       if (Object.keys(params).length != 0) {
         this.companyProfile = JSON.parse(params['companyProfile']);
-
-        console.log('companyProfile ', this.companyProfile);
 
         this.shopName = this.companyProfile.shopName;
         this.merchantNumber = this.companyProfile.merchantNumber;
