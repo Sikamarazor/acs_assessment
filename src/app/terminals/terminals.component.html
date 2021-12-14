@@ -1,0 +1,22 @@
+<app-terminal-popup *ngIf="isViewTerminalMode" [terminalDetails]="terminalDetails" (closePopupEmitter)="closePopup($event)"></app-terminal-popup>
+<div class="container">
+    <div class="text-center">
+        <h2>Terminals</h2>
+    </div>
+    <hr>
+    <div class="row">
+            <div class="col-6 pointer" *ngFor="let item of terminals">
+                <div class="card" (click)="viewTerminal(item)">
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col">
+                          <div>ID: {{item.id}}</div>
+                          <div>Serial number: {{item.serialNr}}</div>
+                          <div>Active: {{item.termActive}}</div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

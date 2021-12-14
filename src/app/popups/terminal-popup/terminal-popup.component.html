@@ -1,0 +1,15 @@
+<ng-template #template>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Terminal details</h4>
+      <button type="button" class="close btn-close pull-right" aria-label="Close" (click)="close()">
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="container">
+              <p>Serial number: {{terminalDetails.serialNr}}</p>
+              <p>ID: {{terminalDetails.id}}</p>
+              <p>Sponsor bank : {{terminalDetails.sponsorBank}}</p>
+      </div>
+    </div>
+</ng-template>
