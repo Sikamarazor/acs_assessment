@@ -42,10 +42,12 @@ export class ProfileComponent implements OnInit {
         this.regionCode = this.companyProfile.regionCode;
         this.countryCode = this.companyProfile.countryCode;
       } else {
+        // If data not found, present toast
         this.toastr.error('No info', 'No data found');
       }
       
     }, error => {
+      // If any errors arises, present toast
       this.toastr.error(error.message, 'Error found');;
     });
   }

@@ -15,7 +15,6 @@ export class TerminalPopupComponent implements OnInit {
   @Input('terminalDetails') terminalDetails: any;
   
   constructor(private modalService: BsModalService) {
-    // this.content = {};
   }
  
   openModal(template: TemplateRef<any>) {
@@ -31,8 +30,6 @@ export class TerminalPopupComponent implements OnInit {
   ngOnInit(): void {
 
     this.openModal(this.template);
-
-    console.log('terminalDetails ', this.terminalDetails);
   }
 
 }
