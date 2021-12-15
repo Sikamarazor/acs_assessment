@@ -30,11 +30,13 @@ export class HomeComponent implements OnInit {
 
         this.shopName = this.companyProfile.shopName;
       } else {
+        // If data empty, present toast
         this.toastr.error('No info', 'No data found');
       }
       
       
     }, error => {
+      // If any errors arises, present toast
       this.toastr.error(error.message, 'Error found');
     });
   }

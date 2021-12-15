@@ -27,6 +27,7 @@ export class TerminalsComponent implements OnInit {
       if (res) {
         this.terminals = res;
       } else {
+        // If data not found, present toast
         this.toastr.error('No info', 'No data found');
       }
     }, error => {
